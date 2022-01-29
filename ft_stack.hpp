@@ -27,7 +27,7 @@ namespace ft
             {
                 c(cont);
             }
-
+//конструктор копирования 
             value_type& top()
             {
                 return c.back();
