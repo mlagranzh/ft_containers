@@ -3,7 +3,7 @@
 
 using namespace ft
 {
-    template <class T, class Container = std::deque<T> >
+    template <class T, class Container = std::stack<T> >
     class stack
     {
         private:
