@@ -1,8 +1,8 @@
 NAME		=	ft_container
 HEADER		=	
 
-CPP			=	clang++ -std=c++98
-SRCS		=	test_stack.cpp
+CPP			=	c++ -std=c++98
+SRCS		=	main.cpp
 OBJ			=	$(SRCS:.cpp=.o)
 
 all: $(NAME)

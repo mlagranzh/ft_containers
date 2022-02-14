@@ -6,13 +6,12 @@
 /*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:52:27 by celys             #+#    #+#             */
-/*   Updated: 2022/02/12 00:32:25 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/14 23:16:12 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_VECTOR_HPP
 #define FT_VECTOR_HPP
-
 #include <iostream>
 
     // template <class T, class A>
@@ -30,6 +29,14 @@ namespace ft
     template<class T, class A = std::allocator<T> >
     class vector 
     {
+        typedef T value_type;
+        typedef A allocator_type;
+        typedef size_t size_type ;
+        typedef ptrdiff_t difference_type;
+        typedef value_type& reference;
+        typedef const value_type& const_reference;
+        typedef typename A::pointer pointer;
+        typedef typename A::const_pointer const_pointer;
         private:
             pointer _arr;
             size_type _len;
@@ -37,28 +44,20 @@ namespace ft
 			allocator_type	_alloc;
 
 	    public:
-            typedef T value_type;
-            typedef A allocator_type;
-            typedef size_t size_type ;
-            typedef ptrdiff_t difference_type;
-            typedef value_type& reference;
-            typedef const value_type& const_reference;
-            typedef typename A::pointer pointer;
-            typedef typename A::const_pointer const_pointer;
             // typedef TO iterator;
             // typedef T1 const iterator;
             // typedef reverse_iterator<const_iterator>;
             // const reverse_iterator;
-            vector() : _arr(NULL), _len(0), _cap(0) _alloc(allocator_type){};
+            vector() : _arr(NULL), _len(0), _cap(0){};
 
 
-            explicit vector(const Allocator& alloc) : 
-            {
+            // explicit vector(const allocator_type& alloc) : 
+            // {
                 
-            };
+            // };
 
             explicit vector(size_type count, const T& value = T(),
-                            const Allocator& alloc = Allocator()) 
+                            const allocator_type& alloc = A()) 
                             : _len(count), _cap(count), _alloc(alloc)
             {
                 this->_arr = this->_alloc.allocate(this->_cap);
@@ -100,12 +99,12 @@ namespace ft
                 return (this->_arr[pos]);
             };
 
-            reference operator[] (size type pos)
+            reference operator[] (size_type pos)
             {
-                return (this->_array[pos]);
+                return (this->_arr[pos]);
             };
 
-            const_reference operator[] (size type pos)
+            const_reference operator[] (size_type pos) const
             {
                 return (this->_array[pos]);
             };
@@ -135,7 +134,7 @@ namespace ft
 */
     size_type max_size() const
     {
-        return (this->_alloc.max_size();
+        return (this->_alloc.max_size());
     };
     
     size_type size() const
@@ -159,15 +158,15 @@ namespace ft
         {       
             for (size_type i = 0; i < _len; i++)
             {
-                alloc.construct(&new_arr[i], this->_arr[i]);
-                alloc.destroy(&this->_arr[i]);
+                this->_alloc.construct(&new_arr[i], this->_arr[i]);
+                this->_alloc.destroy(&this->_arr[i]);
             }
         }
         catch (std::exception &e)
         {
 			for (size_type i = 0; i < n; i++)
-			    _all.destroy(&new_arr[i]);
-			_all.deallocate(new_arr, n);
+			    this->_alloc.destroy(&new_arr[i]);
+			this->_alloc.deallocate(new_arr, n);
 			throw;
 		}
 
@@ -188,34 +187,34 @@ namespace ft
     void clear()
     {
         for (size_type i = 0; i < this->_len; i++)
-		    this->_all.destroy(&_arr[i]);
+		    this->_alloc.destroy(&_arr[i]);
 		_len = 0;
     };
     
-    void insert(iterator it, InIt first, InIt last)
-    {
+    // void insert(iterator it, InIt first, InIt last)
+    // {
         
-    };
+    // };
     
-    iterator insert(iterator it, const T& x)
-    {
+    // iterator insert(iterator it, const T& x)
+    // {
         
-    };
+    // };
     
-    void insert( iterator pos, size_type count, const T& value)
-    {
+    // void insert( iterator pos, size_type count, const T& value)
+    // {
 
-    };
+    // };
     
-    template< class InputIt >
-    void insert( iterator pos, InputIt first, InputIt last )
-    {
+    // template< class InputIt >
+    // void insert( iterator pos, InputIt first, InputIt last )
+    // {
         
-    };
+    // };
 
     void pop_back()
     {
-        _all.destroy(&this->_arr[this->_len]);
+        _alloc.destroy(&this->_arr[this->_len]);
         this->size -= 1;
     };
     
@@ -227,46 +226,46 @@ namespace ft
 		this->_len++;
     };
 
-    iterator erase(iterator it)
-    {
+    // iterator erase(iterator it)
+    // {
 
-    };
+    // };
     
-    iterator erase(iterator first, iterator last)
-    {
+    // iterator erase(iterator first, iterator last)
+    // {
         
-    };
+    // };
 
 
-    void resize(size type n)
+    void resize(size_type n)
     {
 
     };
     
-    void resize(size type n, T x)
+    void resize(size_type n, T x)
     {
 
     };
     
-    void swap(vectors x)
-    {
+    // void swap(vectors x)
+    // {
         
-    };
+    // };
 
 /*
     Iterators
 */
-        iterator begin();
-        const_iterator begin() const;
-            iterator end();
-            const_iterator end() const;
-            reverse_iterator rbegin();
-            const_reverse iterator rbegin() const;
-            reverse iterator rend();
-            const_reverse iterator rend() const;
-            template<class InIt>
-            void assign(InIt first, InIt last);
-            void assign(size type n, const T& x);
+        // iterator begin();
+        // const_iterator begin() const;
+        //  iterator end();
+        //     const_iterator end() const;
+        //     reverse_iterator rbegin();
+        //     const_reverse iterator rbegin() const;
+        //     reverse iterator rend();
+        //     const_reverse iterator rend() const;
+        //     template<class InIt>
+        //     void assign(InIt first, InIt last);
+        //     void assign(size_type n, const T& x);
             
     };
 }
