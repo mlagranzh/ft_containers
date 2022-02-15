@@ -1,5 +1,5 @@
 NAME		=	ft_container
-HEADER		=	
+HEADER		=	ft_vector.hpp
 
 CPP			=	c++ -std=c++98
 SRCS		=	main.cpp
