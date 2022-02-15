@@ -6,7 +6,7 @@
 /*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:52:27 by celys             #+#    #+#             */
-/*   Updated: 2022/02/09 15:46:09 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/15 12:41:33 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,36 @@ namespace ft
             // const reverse_iterator;
             // typedef reverse_iterator<iterator>;
             // reverse iterator;
-            vector() : _arr(NULL), _len(0), _cap(0) {};
+            vector() : _arr(NULL), _len(0), _cap(0) _alloc(allocator_type){};
 
-            explicit vector( const Allocator& alloc )
+
+
+            explicit vector(const Allocator& alloc) : 
             {
                 
             };
 
             explicit vector(size_type count, const T& value = T(),
-                            const Allocator& alloc = Allocator())
+                            const Allocator& alloc = Allocator()) 
+                            : _len(count), _cap(count), _alloc(alloc)
             {
-                
+                this->_arr = this->_alloc.allocate(this->_cap);
+
+                for (size_type i = 0; i < this->_len; i++)
+                    this->_alloc.construct(&this->_arr[i], value);
             };
-            vector( const vector& other )
+            
+            vector(const vector& other): _len(other._len), _cap(other._cap), _alloc(other._alloc) 
             {
-                
-    
+                this->_array = this->_alloc.allocate(this->_cap);
+
+                // const_iterator	it = other.begin();
+
+                // for (int i = 0; it != other.end(); i++, it++){
+                //     this->_alloc.construct(&this->_array[i], *it);
+                // }
+            }
+
             void reserve(size_type n)
             {
                 if (n <= _cap)
