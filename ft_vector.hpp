@@ -3,27 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vector.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:52:27 by celys             #+#    #+#             */
-/*   Updated: 2022/02/15 13:11:20 by celys            ###   ########.fr       */
+/*   Updated: 2022/02/22 18:52:01 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_VECTOR_HPP
 #define FT_VECTOR_HPP
 #include <iostream>
-
-    // template <class T, class A>
-    // class Vector_val
-    // {
-    //     protected:
-    //         Vector val(A Al = A()) : Alval(Al) {}
-    //     typedef typename A::template rebind<T>::other Alty;
-        
-    //     Alty Alval;
-    // };
-    
 namespace ft
 {
     template<class T, class A = std::allocator<T> >
@@ -37,6 +26,11 @@ namespace ft
         typedef const value_type& const_reference;
         typedef typename A::pointer pointer;
         typedef typename A::const_pointer const_pointer;
+        typedef ft::RandomAccessIterator<pointer, vector>   iterator;
+		typedef ft::RandomAccessIterator<const_pointer, vector> const_iterator;
+		typedef ft::ReverseRandomAccessIterator<iterator>  reverse_iterator;
+		typedef ft::ReverseRandomAccessIterator<const_iterator>    const_reverse_iterator;
+
         private:
             pointer _arr;
             size_type _len;
@@ -44,10 +38,6 @@ namespace ft
 			allocator_type	_alloc;
 
 	    public:
-            // typedef TO iterator;
-            // typedef T1 const iterator;
-            // typedef reverse_iterator<const_iterator>;
-            // const reverse_iterator;
             vector() : _arr(NULL), _len(0), _cap(0){};
 
 
@@ -61,6 +51,8 @@ namespace ft
                             : _len(count), _cap(count), _alloc(alloc)
             {
                 this->_arr = this->_alloc.allocate(this->_cap);
+				if (count > this->_alloc.max_size())
+					throw std::length_error("vector");
 
                 for (size_type i = 0; i < this->_len; i++)
                     this->_alloc.construct(&this->_arr[i], value);
