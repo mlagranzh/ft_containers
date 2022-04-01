@@ -3,33 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vector.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:52:27 by celys             #+#    #+#             */
-/*   Updated: 2022/02/22 18:52:01 by celys            ###   ########.fr       */
+/*   Updated: 2022/03/30 01:51:38 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_VECTOR_HPP
 #define FT_VECTOR_HPP
 #include <iostream>
+#include "iterators/RAI.hpp"
+#include "enable_if.hpp"
+
+namespace ft
+{
+template<typename Iterator>
+	ptrdiff_t distance(Iterator first, Iterator last) {
+		ptrdiff_t dist = 0;
+
+		for (; first != last; ++first){
+			dist++;
+		}
+		return dist;
+	}
+}
+
 namespace ft
 {
     template<class T, class A = std::allocator<T> >
     class vector 
     {
-        typedef T value_type;
-        typedef A allocator_type;
-        typedef size_t size_type ;
-        typedef ptrdiff_t difference_type;
-        typedef value_type& reference;
-        typedef const value_type& const_reference;
-        typedef typename A::pointer pointer;
-        typedef typename A::const_pointer const_pointer;
-        typedef ft::RandomAccessIterator<pointer, vector>   iterator;
-		typedef ft::RandomAccessIterator<const_pointer, vector> const_iterator;
-		typedef ft::ReverseRandomAccessIterator<iterator>  reverse_iterator;
-		typedef ft::ReverseRandomAccessIterator<const_iterator>    const_reverse_iterator;
+        public:
+            typedef T value_type;
+            typedef A allocator_type;
+            typedef size_t size_type ;
+            typedef ptrdiff_t difference_type;
+            typedef value_type& reference;
+            typedef const value_type& const_reference;
+            typedef typename A::pointer pointer;
+            typedef typename A::const_pointer const_pointer;
+            typedef ft::RandomAccessIterator<value_type, value_type*,value_type&>   iterator;
+            // typedef ft::RandomAccessIterator<const_pointer> const_iterator;
+            // typedef ft::ReverseRandomAccessIterator<iterator>  reverse_iterator;
+            // typedef ft::ReverseRandomAccessIterator<const_iterator>    const_reverse_iterator;
 
         private:
             pointer _arr;
@@ -58,15 +75,16 @@ namespace ft
                     this->_alloc.construct(&this->_arr[i], value);
             };
             
+            
             vector(const vector& other): _len(other._len), _cap(other._cap), _alloc(other._alloc) 
             {
                 this->_array = this->_alloc.allocate(this->_cap);
 
-                // const_iterator	it = other.begin();
+                iterator    it = other.begin();
 
-                // for (int i = 0; it != other.end(); i++, it++){
-                //     this->_alloc.construct(&this->_array[i], *it);
-                // }
+                for (int i = 0; it != other.end(); i++, it++){
+                    this->_alloc.construct(&this->_array[i], *it);
+                }
             }
 
             allocator_type get_allocator() const
@@ -182,27 +200,69 @@ namespace ft
 		    this->_alloc.destroy(&_arr[i]);
 		_len = 0;
     };
-    
-    // void insert(iterator it, InIt first, InIt last)
-    // {
-        
-    // };
-    
-    // iterator insert(iterator it, const T& x)
-    // {
-        
-    // };
-    
-    // void insert( iterator pos, size_type count, const T& value)
-    // {
 
-    // };
-    
-    // template< class InputIt >
-    // void insert( iterator pos, InputIt first, InputIt last )
-    // {
+		// template<class InputIterator>
+		// void insert( iterator pos, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0)
+		// {
+		// 	vector tmp(pos, end());
+		// 	this->_size -= ft::distance(pos, end());
+		// 	while (first != last) {
+		// 		push_back(*first);
+		// 		++first;
+		// 	}
+		// 	iterator it = tmp.begin();
+		// 	while (it != tmp.end()) {
+		// 		push_back(*it);
+		// 		++it;
+		// 	}
+		// }
         
-    // };
+		iterator insert( iterator pos, const T& value )
+		{
+			size_type n = ft::distance(begin(), pos);
+			insert(pos, 1, value);
+			return (iterator(&this->_arr[n]));
+		}
+
+		// iterator insert( const_iterator pos, T& value )
+		// {
+		// 	size_type n = ft::distance(begin(), pos);
+		// 	insert(pos, 1, value);
+		// 	return (iterator(&this->_array[n]));
+		// }
+
+		template <class InputIterator>
+		vector( InputIterator first, InputIterator last, const allocator_type& alloc = A(), 
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value >::type* = 0): _arr(0), _len(0), _cap(0), _alloc(alloc)
+		{
+			InputIterator tmp(first);
+			while (tmp!= last)
+			{
+				this->_len++;
+				tmp++;
+			}
+
+			this->_cap = this->_len;
+			this->_arr = this->_alloc.allocate(this->_cap);
+			for (int i = 0; first != last; i++, first++){
+				this->_alloc.construct(&this->_arr[i], *first);
+			}
+		}
+
+		void insert( iterator pos, size_type count, const T& value )
+		{
+			vector tmp(pos, end());
+			this->_len -= ft::distance(pos, end());
+			while (count) {
+				push_back(value);
+				--count;
+			}
+			iterator it = tmp.begin();
+			while (it != tmp.end()) {
+				push_back(*it);
+				++it;
+			}
+		}
 
     void pop_back()
     {
@@ -218,36 +278,71 @@ namespace ft
 		this->_len++;
     };
 
-    // iterator erase(iterator it)
-    // {
-
-    // };
-    
-    // iterator erase(iterator first, iterator last)
-    // {
-        
-    // };
+	iterator erase( iterator pos )
+		{
+			return erase(pos, pos + 1);
+		}
 
 
-    void resize(size_type n)
-    {
+//надо поправить!!!!
+		iterator erase( iterator first, iterator last )
+		{
+            difference_type index = first - begin();
 
-    };
-    
-    void resize(size_type n, T x)
-    {
+			if (last < end())
+			{
+				moveElementsToTheLeft(first, last);
+				this->_size -= static_cast<size_type>(last - first);
+			}
+			else
+			{
+				size_type newSize = this->_size - static_cast<size_type>(last - first);
+				while (this->_size != newSize)
+					pop_back();
+			}
+			return (iterator(&this->_array[index]));
+		}
 
-    };
-    
-    // void swap(vectors x)
-    // {
-        
-    // };
+		void resize( size_type count ) const
+		{
+			while (count < this->_len)
+				pop_back();
+		}
+
+		void		resize (size_type count, value_type value = value_type()) {
+			while (count < this->_size)
+				pop_back();
+			if (count > this->_cap)
+				reserve(count);
+			while (count > this->_size)
+				push_back(value);
+		}
+
+		void swap( vector& other )
+		{
+			swap(this->_alloc, other._alloc);
+			swap(this->_len, other._len);
+			swap(this->_cap, other._cap);
+			swap(this->_arr, other._arr);
+		}
+
 
 /*
     Iterators
 */
-        // iterator begin();
+		iterator begin() { return iterator(this->_arr);}
+		// const_iterator begin() const { return const_iterator(this->_array);}
+		iterator end() { return iterator(this->_arr + this->_len);}
+		// const_iterator end() const { return const_iterator(this->_array + this->_size);}
+		// reverse_iterator rbegin() { return reverse_iterator(this->_array + this->_size - 1);}
+		// const_reverse_iterator rbegin() const { return const_reverse_iterator(this->_array + this->_size - 1);}
+		// reverse_iterator rend() { return reverse_iterator(this->_array - 1);}
+		// const_reverse_iterator rend() const { return const_reverse_iterator(this->_array - 1);}
+
+        // iterator begin()
+        // {
+            
+        // }
         // const_iterator begin() const;
         //  iterator end();
         //     const_iterator end() const;

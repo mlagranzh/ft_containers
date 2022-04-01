@@ -79,6 +79,8 @@
         "semaphore": "cpp",
         "thread": "cpp",
         "*.tcc": "cpp",
-        "stop_token": "cpp"
+        "stop_token": "cpp",
+        "list": "cpp",
+        "set": "cpp"
     }
 }
