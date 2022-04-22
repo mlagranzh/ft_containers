@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_vector.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: celys <celys@student.21-school.ru>         +#+  +:+       +#+        */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 17:52:27 by celys             #+#    #+#             */
-/*   Updated: 2022/03/30 01:51:38 by celys            ###   ########.fr       */
+/*   Updated: 2022/04/18 16:42:57 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,7 @@ namespace ft
 				pop_back();
 		}
 
-		void		resize (size_type count, value_type value = value_type()) {
+		void    resize (size_type count, value_type value = value_type()) {
 			while (count < this->_size)
 				pop_back();
 			if (count > this->_cap)

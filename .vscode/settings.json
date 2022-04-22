@@ -81,6 +81,7 @@
         "*.tcc": "cpp",
         "stop_token": "cpp",
         "list": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "filesystem": "cpp"
     }
 }
