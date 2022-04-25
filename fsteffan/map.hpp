@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   map.hpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fsteffan <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 10:38:30 by llefranc          #+#    #+#             */
-/*   Updated: 2022/01/28 08:20:46 by fsteffan         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MAP_HPP
 #define MAP_HPP
 
@@ -23,9 +11,11 @@
 namespace ft
 {
 	template < class Key, class T, class Compare = ft::cmp<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
-	class map {
+	class map 
+	{
 		private:
-			struct Node {
+			struct Node 
+			{
 				ft::pair<const Key, T>	content;
 				Node*					parent;
 				Node*					left;
@@ -80,6 +70,7 @@ namespace ft
 			std::allocator<Node>	_allocNode;
 
 		public:
+		
 			explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):
 				_size(0), _allocPair(alloc), _comp(comp)
 			{

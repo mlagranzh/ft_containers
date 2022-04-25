@@ -3,7 +3,8 @@
 
 #include "memory"
 
-namespace ft{
+namespace ft
+{
 
 	template <class T> struct remove_const { typedef T type; };
 
@@ -173,6 +174,27 @@ namespace ft{
 		}
 		return true;
 	}
+
+
+
+	template <bool isConst, typename isFalse, typename isTrue>
+	struct chooseConst {};
+
+	template <typename isFalse, typename isTrue>
+	struct chooseConst<false, isFalse, isTrue> {
+		typedef isFalse type;
+	};
+
+	template <typename isFalse, typename isTrue>
+	struct chooseConst<true, isFalse, isTrue> {
+		typedef isTrue type;
+	};
+	template <class T>
+    struct cmp
+    {        
+        bool operator() (const T& x, const T& y) const {return x<y;}
+    };
+
 
 };
 
