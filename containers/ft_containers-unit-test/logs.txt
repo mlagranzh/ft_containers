@@ -1,16 +1,1 @@
-../utilities_tests/iterator_traits.cpp:22:48: error: no member named 'iterator_category' in 'ft::RandomAccessIterator<int, int *, int &, std::__1::random_access_iterator_tag>'
-        res2.push_back(typeid(_vector<int>::iterator::iterator_category).name());
-                              ~~~~~~~~~~~~~~~~~~~~~~~~^
-../utilities_tests/iterator_traits.cpp:23:48: error: no member named 'value_type' in 'ft::RandomAccessIterator<int, int *, int &, std::__1::random_access_iterator_tag>'
-        res2.push_back(typeid(_vector<int>::iterator::value_type).name());
-                              ~~~~~~~~~~~~~~~~~~~~~~~~^
-../utilities_tests/iterator_traits.cpp:25:48: error: no member named 'iterator_type' in 'ft::RandomAccessIterator<int, int *, int &, std::__1::random_access_iterator_tag>'
-        res2.push_back(typeid(_vector<int>::iterator::iterator_type).name());
-                              ~~~~~~~~~~~~~~~~~~~~~~~~^
-../utilities_tests/iterator_traits.cpp:28:56: error: no member named 'iterator_category' in 'ft::ReverseRandomAccessIterator<int, int *, int &, std::__1::random_access_iterator_tag>'
-        res2.push_back(typeid(_vector<int>::reverse_iterator::iterator_category).name());
-                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-../utilities_tests/iterator_traits.cpp:29:56: error: no member named 'value_type' in 'ft::ReverseRandomAccessIterator<int, int *, int &, std::__1::random_access_iterator_tag>'
-        res2.push_back(typeid(_vector<int>::reverse_iterator::value_type).name());
-                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-5 errors generated.
+

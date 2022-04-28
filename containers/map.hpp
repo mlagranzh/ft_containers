@@ -23,19 +23,19 @@ namespace ft {
 		typedef std::size_t								size_type;
 
 	private:
-		class pair_compare {
-			key_compare _compare;
-		public:
-			pair_compare(const key_compare & compare) : _compare(compare) {}
+		class pair_compare 
+		{
+			private:
+				key_compare _compare;
+			public:
+				pair_compare(const key_compare & compare) : _compare(compare) {}
 
-			bool operator ()(const value_type & x, const value_type & y) const {
-				return (_compare(x.first, y.first));
-			}
+				bool operator ()(const value_type & x, const value_type & y) const { return (_compare(x.first, y.first));}
 		};
 
 	public:
-		typedef typename pair_compare									value_compare;
-		typedef typename tree<value_type, pair_compare, allocator_type>	tree_type;
+		typedef  		 pair_compare									value_compare;
+		typedef  		 tree<value_type, pair_compare, allocator_type>	tree_type;
 		typedef typename tree_type::iterator					        iterator;
 		typedef typename tree_type::const_iterator				        const_iterator;
 		typedef typename tree_type::reverse_iterator		    	    reverse_iterator;
@@ -48,42 +48,47 @@ namespace ft {
 
 	public:
 
+//		BASE
 		explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()): _alloc(alloc), _tree(tree_type(comp, alloc)), _compare(comp) {}
 
+		~map() {clear();}
 		template <class InputIt>
 		map(InputIt first, InputIt last, const Compare& compare = Compare(), const Allocator& alloc = Allocator()): _alloc(alloc), _tree(first, last, compare, _alloc), _compare(compare) {}
 
-		iterator begin() {
-			return (_tree.begin());
+		allocator_type get_allocator() const {return (_tree.get_allocator());}
+
+		map(map &other_map) {*this = x}
+		map& operator= (const map& x) {*this = x; return *this}
+//		Element access
+
+		T& at(const Key &key) {
+			iterator res = _tree.find(ft::make_pair(key, mapped_type()));
+			if (res == _tree.end())
+				throw std::out_of_range("map::at: key not found");
+			return (res->second);
 		}
 
-		iterator end() {
-			return (_tree.end());
-		}
+		mapped_type& operator[](const key_type& key) { return (*((this->insert(make_pair(key,mapped_type()))).first)).second;}
 
-		reverse_iterator rbegin() {
-			return(_tree.rbegin());
-		}
+//		Iterators
 
-		reverse_iterator rend() {
-			return(_tree.rend());
-		}
+		iterator begin() {return (_tree.begin());}
 
-		bool empty() const {
-			return (_tree.empty());
-		}
+		iterator end() {return (_tree.end());}
 
-		size_type size() const {
-			return (_tree.size());
-		}
+		reverse_iterator rbegin() {return(_tree.rbegin());}
 
-		size_type max_size() const {
-			return (_tree.max_size());
-		}
+		reverse_iterator rend() {return(_tree.rend());}
 
-		mapped_type& operator[](const key_type& key) {
-			return (*((this->insert(ft::make_pair(key,mapped_type()))).first)).second;
-		}
+//		Capacity
+
+		bool empty() const {return (_tree.empty());}
+
+		size_type size() const {return (_tree.size());}
+
+		size_type max_size() const {return (_tree.max_size());}
+
+//		Modifiers
 
 		pair<iterator, bool> insert(const value_type& value) {
 			return (_tree.insert(value));
@@ -110,22 +115,11 @@ namespace ft {
 			_tree.erase(first, last);
 		}
 
-		void swap(map & other) {
-			std::swap(this->_compare, other._compare);
-			_tree.swap(other._tree);
-		}
-
 		void clear() {
 			_tree.clear();
 		}
 
-		key_compare key_comp() const {
-			return (_compare);
-		}
-
-		value_compare value_comp() const {
-			return (_tree.value_comp());
-		}
+//		Lookup
 
 		iterator find(const Key& key) {
 			return _tree.find(make_pair(key, mapped_type()));
@@ -159,15 +153,21 @@ namespace ft {
 			return (_tree.equal_range(make_pair(key, mapped_type())));
 		}
 
-		allocator_type get_allocator() const {
-			return (_tree.get_allocator());
+//		Observers
+
+		key_compare key_comp() const {
+			return (_compare);
 		}
 
-		T& at(const Key &key) {
-			iterator res = _tree.find(ft::make_pair(key, mapped_type()));
-			if (res == _tree.end())
-				throw std::out_of_range("map::at: key not found");
-			return (res->second);
+		value_compare value_comp() const {
+			return (_tree.value_comp());
+		}
+
+//		Non-member functions
+
+		void swap(map & other) {
+			std::swap(this->_compare, other._compare);
+			_tree.swap(other._tree);
 		}
 
 		template<class _Key, class _T, class _Compare, class _Alloc>

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rai.hpp                                            :+:      :+:    :+:   */
+/*   RAI.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 17:51:19 by celys             #+#    #+#             */
-/*   Updated: 2022/04/21 17:51:20 by celys            ###   ########.fr       */
+/*   Updated: 2022/04/28 09:02:25 by celys            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ namespace ft
 		typedef Reference											reference;
 		typedef size_t												size_type;
 		typedef ptrdiff_t											difference_type;
-
+		typedef T													value_type;
+		typedef Category											iterator_category;
+		typedef T*													iterator_type;
+	
 		pointer	_array;
 
 		RandomAccessIterator() : _array(NULL) {}

@@ -17,6 +17,9 @@ namespace ft
 		typedef Reference												reference;
 		typedef size_t													size_type;
 		typedef ptrdiff_t												difference_type;
+		typedef T														value_type;
+		typedef Category												iterator_category;
+		typedef T*														iterator_type;
 
 		pointer	_array;
 

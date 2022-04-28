@@ -8,12 +8,12 @@ int main(int argc, char* argv[], char* env[]) {
 	printElement(WHITE + "LEAKS" + RESET); cout << endl;
 
 	runFunctionTest("../vector_tests/constructor.cpp", argv, env);
-	runFunctionTest("../vector_tests/constructor(std iterators).cpp", argv, env);
+	// runFunctionTest("../vector_tests/constructor(std iterators).cpp", argv, env);
 	runFunctionTest("../vector_tests/iterators.cpp", argv, env);
 	runFunctionTest("../vector_tests/begin().cpp", argv, env);
 	runFunctionTest("../vector_tests/end().cpp", argv, env);
 	runFunctionTest("../vector_tests/rbegin().cpp", argv, env);
-	runFunctionTest("../vector_tests/rend().cpp", argv, env);
+	// runFunctionTest("../vector_tests/rend().cpp", argv, env);
 	runFunctionTest("../vector_tests/size().cpp", argv, env);
 	runFunctionTest("../vector_tests/max_size().cpp", argv, env);
 	runFunctionTest("../vector_tests/resize().cpp", argv, env);
@@ -36,7 +36,7 @@ int main(int argc, char* argv[], char* env[]) {
 	runFunctionTest("../vector_tests/erase(range).cpp", argv, env);
 	runFunctionTest("../vector_tests/swap().cpp", argv, env);
 	runFunctionTest("../vector_tests/clear().cpp", argv, env);
-	runFunctionTest("../vector_tests/data().cpp", argv, env);
+	// runFunctionTest("../vector_tests/data().cpp", argv, env);
 	runFunctionTest("../vector_tests/using allocator.cpp", argv, env);
 	runFunctionTest("../vector_tests/operator ==.cpp", argv, env);
 	runFunctionTest("../vector_tests/operator !=.cpp", argv, env);

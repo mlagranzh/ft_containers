@@ -8,24 +8,22 @@
 
 namespace ft
 {
-
 	template<class Value, class Compare = std::less<Value>, class Alloc = std::allocator<Value> >
-	class tree 
-	{
+	class tree {
 	public:
-		typedef typename Value											value_type;
-		typedef typename Compare										value_compare;
-		typedef typename Alloc											allocator_type;
+		typedef  		 Value											value_type;
+		typedef     	 Compare										value_compare;
+		typedef  		 Alloc											allocator_type;
 		typedef typename Alloc::template rebind<Node<Value> >::other 	node_allocator;
 		typedef typename node_allocator::pointer						node_pointer;
 		typedef typename allocator_type::reference						reference;
 		typedef typename allocator_type::const_reference				const_reference;
 		typedef typename allocator_type::pointer						pointer;
 		typedef typename allocator_type::const_pointer					const_pointer;
-		typedef std::ptrdiff_t											difference_type;
-		typedef std::size_t												size_type;
-		typedef typename TreeIter<Value>								iterator;
-		typedef typename TreeIter<const Value>							const_iterator;
+		typedef  		 std::ptrdiff_t									difference_type;
+		typedef  		 std::size_t									size_type;
+		typedef  		 TreeIter<Value>								iterator;
+		typedef  		 TreeIter<const Value>							const_iterator;
 		typedef typename ft::reverse_iterator<iterator>					reverse_iterator;
 		typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 
@@ -206,7 +204,6 @@ namespace ft
 			_val_alloc.deallocate(node->value, 1);
 			_node_alloc.deallocate(node, 1);
 		}
-
 
 
 	public:

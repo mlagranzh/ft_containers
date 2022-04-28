@@ -7,38 +7,40 @@
 namespace ft {
 
 	template<class Value>
-	struct Node {
+	struct Node 
+	{
+		public:
+			Value	*value;
+			Node	*parent;
+			Node	*left;
+			Node	*right;
+			bool	is_black;
+			bool	is_nil;
 
-	public:
-		Value	*value;
-		Node	*parent;
-		Node	*left;
-		Node	*right;
-		bool	is_black;
-		bool	is_nil;
+			explicit Node(Value *srcval = 0) : value(srcval), parent(0), left(0), right(0), is_black(false), is_nil(0) {}
 
-		explicit Node(Value *srcval = 0) : value(srcval), parent(0), left(0), right(0), is_black(false), is_nil(0) {}
+			Node(Node const &other) 
+			{
+				this->is_black = other.is_black;
+				this->value = other.value;
+				this->parent = other.parent;
+				this->is_nil = other.is_nil;
+				this->right = other.right;
+				this->left = other.left;
+			};
 
-		Node(Node const &other) {
-			this->is_black = other.is_black;
-			this->value = other.value;
-			this->parent = other.parent;
-			this->is_nil = other.is_nil;
-			this->right = other.right;
-			this->left = other.left;
-		};
+			virtual ~Node() {}
 
-		virtual ~Node() {}
-
-		Node &operator =(const Node &other) {
-			this->is_black = other.is_black;
-			this->value = other.value;
-			this->is_nil = other.is_nil;
-			this->parent = other.parent;
-			this->right = other.right;
-			this->left = other.left;
-			return *this;
-		}
+			Node &operator =(const Node &other) 
+			{
+				this->is_black = other.is_black;
+				this->value = other.value;
+				this->is_nil = other.is_nil;
+				this->parent = other.parent;
+				this->right = other.right;
+				this->left = other.left;
+				return *this;
+			}
 	};
 
 	template<typename T>

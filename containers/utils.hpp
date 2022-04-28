@@ -31,16 +31,6 @@ namespace ft
 		typedef	std::random_access_iterator_tag		iterator_category;
 	};
 
-	template <class T>
-			class iterator_traits<const T*> {
-	public:
-		typedef std::ptrdiff_t						difference_type;
-		typedef const T								value_type;
-		typedef const T*							pointer;
-		typedef const T&							reference;
-		typedef	std::random_access_iterator_tag		iterator_category;
-	};
-
 	template <class T1, class T2>
 	struct pair {
 
@@ -174,27 +164,6 @@ namespace ft
 		}
 		return true;
 	}
-
-
-
-	template <bool isConst, typename isFalse, typename isTrue>
-	struct chooseConst {};
-
-	template <typename isFalse, typename isTrue>
-	struct chooseConst<false, isFalse, isTrue> {
-		typedef isFalse type;
-	};
-
-	template <typename isFalse, typename isTrue>
-	struct chooseConst<true, isFalse, isTrue> {
-		typedef isTrue type;
-	};
-	template <class T>
-    struct cmp
-    {        
-        bool operator() (const T& x, const T& y) const {return x<y;}
-    };
-
 
 };
 
