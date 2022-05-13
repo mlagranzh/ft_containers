@@ -1,18 +1,17 @@
-NAME		=	ft_container
-HEADER		=	ft_vector.hpp
+NAME		=	ft_containers
 
-CPP			=	c++ -std=c++98
+CPP			=	c++ -Wall -Wextra -Werror -std=c++98
 SRCS		=	main.cpp
 OBJ			=	$(SRCS:.cpp=.o)
 
 all: $(NAME)
 
-.cpp.o :
-	${CPP} -c $< -o ${<:.cpp=.o}
+%.o: %.cpp 
+	$(CPP) -c $< -o $@
 
-$(NAME): $(OBJ) $(HEADER) MAKEFILE
+$(NAME): $(OBJ) MAKEFILE
 	@echo "\033[0;35mСоздаю исполняемый файл...\033[0;32m"
-	@$(CPP) -o $(NAME) $(OBJ)
+	@$(CPP) $(OBJ) -o $(NAME)
 
 clean:
 	@echo "\033[0;35mУдаляю объектные файлы...\033[0;31m"
@@ -24,4 +23,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all libft clean fclean re

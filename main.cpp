@@ -1,67 +1,69 @@
-// #include "ft_vector.hpp"
-#include <vector>
-#include <map>
-#include "fsteffan/map.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: celys <celys@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/29 15:44:08 by celys             #+#    #+#             */
+/*   Updated: 2022/05/02 20:26:53 by celys            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
+#include <string>
+#include <deque>
+#if 1 //CREATE A REAL STL EXAMPLE
+	#include <map>
+	#include <stack>
+	#include <vector>
+	namespace ft = std;
+#else
+	#include "map.hpp"
+	#include "stack.hpp"
+	#include "vector.hpp"
+#endif
 
-template<typename Map>
-void print_map(Map& m)
+#include <stdlib.h>
+
+int main() 
 {
-   std::cout << '{';
-   for(auto& p: m)
-        std::cout << p.first << ':' << p.second << ' ';
-   std::cout << "}\n";
-}
 
+  ft::map <int, int>  street;
+  street.insert(ft::make_pair(1, 2));  
+  street.insert(ft::make_pair(1, 2));  
+  street.insert(ft::make_pair(5, 3));  
+  std::cout << street.count(1) << std::endl;
+  street.erase(1);
+  std::cout << street.count(1) << std::endl;
+  std::cout << street[5] << std::endl;
 
-// void test_vector()
-// {
-//     {
-//         ft::vector<int> a(15);
-//         a.push_back(20);
-//         std::cout << a[15];
-//         ft::vector <int>::iterator it = a.begin();
-//         a.insert (it,200); ///И первым элементом записывается 200
-//         a.clear();
-//         std::cout << a[0] << std::endl;
-//     }
+  for (ft::map <int, int>::iterator it = street.begin(); it != street.end(); it++ )
+  {
+    std::cout << it->first <<';' << it->second << std::endl;
+  }
 
-//     std::cout << "----------------------------------------------------------------" << std::endl;
-    
-//     {
-//         std::vector<int> a(15);
-//         a.push_back(20);
-//         std::cout << a[15];
-//         std::vector <int>::iterator it = a.begin();
-//         a.insert (it,200); ///И первым элементом записывается 200
-//         a.clear();
-//         std::cout << a[0] << std::endl;
-//     }
+  std::cout << "|||||||||||||||||||||||||||" << std::endl;
 
-// }
+  ft::vector<int> vec;
+  vec.push_back(1);
+  vec.push_back(13);
+  vec.push_back(2);
 
-void test_map()
-{
-    {
-        std::map<std::string, int> map1;
-        map1["something"] = 69;
-        map1["anything"] = 199;
-        map1["that thing"] = 50;
-        std::cout << "map1 = "; print_map(map1);
-    }
+  std::cout << vec[0] << std::endl;
+  vec.erase(vec.begin());
+  std::cout << vec[0] << std::endl;
 
-    {
-        ft::map<std::string, int> map1;
-        map1["something"] = 69;
-        map1["anything"] = 199;
-        map1["that thing"] = 50;
-        std::cout << "map1 = "; print_map(map1);
-    }
+  std::cout << "|||||||||||||||||||||||||||" << std::endl;
 
-}
+  ft::stack<int> st;
+  st.push(1);
+  st.push(13);
+  st.push(2);
 
-int main()
-{
-    test_map();
-    return (0);
+  std::cout << st.top() << std::endl;
+  st.pop();
+  std::cout << st.top() << std::endl;
+
+  return (0);
 }
